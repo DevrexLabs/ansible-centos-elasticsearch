@@ -1,0 +1,4 @@
+[elasticsearch]
+34.253.228.255 ansible_user=centos ansible_private_key_file=centos.pem
+34.253.185.49 ansible_user=centos ansible_private_key_file=centos.pem
+34.253.208.178 ansible_user=centos ansible_private_key_file=centos.pem
