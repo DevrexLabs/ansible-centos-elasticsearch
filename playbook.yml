@@ -1,0 +1,5 @@
+# playbook.yml
+---
+- hosts: elasticsearch
+  roles:
+    - name: elasticsearch
