@@ -1,0 +1,5 @@
+# Ignore Python virtualenv directory.
+venv/
+
+# Ignore Ansible retry files.
+*.retry
