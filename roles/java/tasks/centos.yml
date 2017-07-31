@@ -1,0 +1,27 @@
+# roles/java/tasks/centos.yml
+---
+# cd /tmp
+# wget \
+#   --no-cookies \
+#   --no-check-certificate \
+#   --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \
+#   "http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jre-8u144-linux-x64.rpm"
+- name: download jre
+  get_url:
+    url: http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jre-8u144-linux-x64.rpm
+    headers: "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie"
+    dest: /tmp/jre-8u144-linux-x64.rpm
+    force: no
+  tags:
+    - java
+    - installation
+
+# sudo yum localinstall jre-8u144-linux-x64.rpm
+- name: install jre
+  yum:
+    name: /tmp/jre-8u144-linux-x64.rpm
+    state: present
+  become: yes
+  tags:
+    - java
+    - installation
