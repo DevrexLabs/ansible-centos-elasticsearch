@@ -1,0 +1,58 @@
+# roles/elasticsearch/centos.yml
+---
+# cd /tmp
+# wget \
+#   https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.5.1.rpm
+- name: download elasticsearch
+  get_url:
+    url: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.5.1.rpm
+    dest: /tmp/elasticsearch-5.5.1.rpm
+  tags:
+    - elasticsearch
+    - installation
+
+# sudo yum localinstall elasticsearch-5.5.1.rpm
+- name: install elasticsearch
+  yum:
+    name: /tmp/elasticsearch-5.5.1.rpm
+    state: present
+  become: yes
+  tags:
+    - elasticsearch
+    - installation
+
+# sudo systemctl enable elasticsearch.service
+- name: enable elasticsearch to start on boot
+  systemd:
+    name: elasticsearch.service
+    enabled: yes
+  become: yes
+  tags:
+    - elasticsearch
+    - installation
+
+# vim /etc/elasticsearch/elasticsearch.yml
+# sudo systemctl restart elasticsearch
+- name: configure elasticsearch
+  template:
+    src: elasticsearch.yml.j2
+    dest: /etc/elasticsearch/elasticsearch.yml
+  become: yes
+  notify:
+    - restart elasticsearch
+  tags:
+    - elasticsearch
+    - configuration
+
+# vim /etc/elasticsearch/jvm.options
+# sudo systemctl restart elasticsearch
+- name: configure elasticsearch jvm options
+  template:
+    src: jvm.options.j2
+    dest: /etc/elasticsearch/jvm.options
+  become: yes
+  notify:
+    - restart elasticsearch
+  tags:
+    - elasticsearch
+    - configuration

@@ -1,0 +1,3 @@
+# roles/elasticsearch/defaults/main.yml
+---
+elasticsearch_cluster_name: elasticsearch

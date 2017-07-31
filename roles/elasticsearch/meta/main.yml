@@ -1,0 +1,4 @@
+# roles/elasticsearch/meta/main.yml
+---
+dependencies:
+  - role: java

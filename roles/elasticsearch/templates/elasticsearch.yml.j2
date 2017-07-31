@@ -1,0 +1,15 @@
+# {{ ansible_managed }}
+cluster.name: {{ elasticsearch_cluster_name }}
+
+network.bind_host: [ _local_, {{ hostvars[ansible_host]['ansible_default_ipv4']['address'] }} ]
+network.host: {{ hostvars[ansible_host]['ansible_default_ipv4']['address'] }}
+
+http.port: 9200
+
+discovery.zen.ping.unicast.hosts: {{ groups['elasticsearch'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | list | to_json }}
+
+discovery.zen.minimum_master_nodes: 1
+
+node.master: true
+node.data: true
+node.ingest: true

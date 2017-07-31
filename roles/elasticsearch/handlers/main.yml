@@ -1,0 +1,7 @@
+# roles/elasticsearch/handlers/main.yml
+---
+- name: restart elasticsearch
+  service:
+    name: elasticsearch
+    state: restarted
+  become: yes
